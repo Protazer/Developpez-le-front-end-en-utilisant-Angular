@@ -9,7 +9,7 @@ import {IOlympicCountry} from "../../core/models/Olympic";
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public olympics$: Observable<IOlympicCountry | null | undefined> = of(null);
+  public olympics$: Observable<IOlympicCountry[] | null | undefined> = of(null);
 
   constructor(private olympicService: OlympicService) {}
 

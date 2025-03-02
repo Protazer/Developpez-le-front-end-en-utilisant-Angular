@@ -9,12 +9,12 @@ import {IOlympicCountry} from "../models/Olympic";
 })
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
-  private olympics$ = new BehaviorSubject<IOlympicCountry |null | undefined>(undefined);
+  private olympics$ = new BehaviorSubject<IOlympicCountry[] | null | undefined>(undefined);
 
   constructor(private http: HttpClient) {}
 
   loadInitialData() {
-    return this.http.get<IOlympicCountry>(this.olympicUrl).pipe(
+    return this.http.get<IOlympicCountry[]>(this.olympicUrl).pipe(
       tap((value) => this.olympics$.next(value)),
       catchError((error, caught) => {
         // TODO: improve error handling
