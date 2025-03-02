@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import {IOlympicCountry} from "../../core/models/Olympic";
+import { IOlympicCountry } from '../../core/models/Olympic';
 
 @Component({
   selector: 'app-home',
@@ -11,9 +11,14 @@ import {IOlympicCountry} from "../../core/models/Olympic";
 export class HomeComponent implements OnInit {
   public olympics$: Observable<IOlympicCountry[] | null | undefined> = of(null);
 
+  public countryMedals$?: Observable<
+    { name: string; value: number }[] | undefined
+  >;
+
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
+    this.countryMedals$ = this.olympicService.getCountryMedals();
   }
 }
