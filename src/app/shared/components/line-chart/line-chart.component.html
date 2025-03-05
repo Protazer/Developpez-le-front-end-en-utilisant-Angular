@@ -1,15 +1,14 @@
 <ngx-charts-line-chart
-  (activate)="onActivate($event)"
-  (select)="onSelect($event)"
-  [legend]="legend"
+  (window:resize)="onResize($event)"
+  [autoScale]="configuration.autoScale"
+  [legend]="configuration.showLegend"
   [results]="datas"
-  [scheme]="colorScheme"
-  [showXAxisLabel]="showXAxisLabel"
-  [showYAxisLabel]="showYAxisLabel"
-  [timeline]="timeline"
-  [xAxisLabel]="xAxisLabel"
-  [xAxis]="xAxis"
-  [yAxisLabel]="yAxisLabel"
-  [yAxis]="yAxis"
->
+  [showXAxisLabel]="configuration.showXAxisLabel"
+  [timeline]="configuration.timeline"
+  [view]="configuration.view"
+  [xAxisLabel]="configuration.xAxisLabel"
+  [xAxis]="configuration.xAxis"
+  [yAxis]="configuration.yAxis"
+  [yScaleMax]="configuration.yScaleMax"
+  [yScaleMin]="configuration.yScaleMin">
 </ngx-charts-line-chart>

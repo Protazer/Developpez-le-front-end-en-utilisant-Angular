@@ -1,29 +1,48 @@
-import { Component, Input } from '@angular/core';
-import { Color, LegendPosition, ScaleType } from '@swimlane/ngx-charts';
+import { Component, Input, OnInit } from '@angular/core';
+import { ScaleType } from '@swimlane/ngx-charts';
+import { IPieChartDatas } from '../../../core/models/PieChart';
+import { IPieChartConfiguration } from './pie-chart.types';
 
 @Component({
   selector: 'app-pie-chart',
   templateUrl: './pie-chart.component.html',
   styleUrl: './pie-chart.component.scss',
 })
-export class PieChartComponent {
-  @Input() datas?: any;
-  view: [number, number] = [700, 700];
-  gradient: boolean = true;
-  showLegend: boolean = false;
-  showLabels: boolean = true;
-  isDoughnut: boolean = false;
-  legendPosition: LegendPosition = LegendPosition.Below;
-
-  colorScheme: Color = {
-    name: 'custom colors',
-    group: ScaleType.Linear,
-    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5'],
-    selectable: false,
+export class PieChartComponent implements OnInit {
+  @Input() datas?: IPieChartDatas[] | null;
+  configuration: IPieChartConfiguration = {
+    view: [500, 500],
+    gradient: true,
+    showLegend: false,
+    showLabels: true,
+    isDoughnut: false,
+    trimLabels: false,
+    colorScheme: {
+      name: 'custom colors',
+      group: ScaleType.Linear,
+      domain: [
+        '#956065',
+        '#793d52',
+        '#89a1db',
+        '#9780a1',
+        '#bfe0f1',
+        '#b8cbe7',
+      ],
+      selectable: false,
+    },
   };
 
-  onSelect(data: { label: string; value: number; name: string }) {
+  ngOnInit() {
+    this.configuration.view = [window.innerWidth, 500];
+  }
+
+  onSelect(data: IPieChartDatas) {
     console.log(data);
+  }
+
+  onResize(event: Event): void {
+    const element = event.target as Window;
+    this.configuration.view = [element.innerWidth, 500];
   }
 
   onActivate(data: any): void {}

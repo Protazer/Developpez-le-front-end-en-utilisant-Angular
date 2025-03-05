@@ -7,7 +7,7 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
 
 @NgModule({
   declarations: [PieChartComponent, LineChartComponent],
-  exports: [PieChartComponent],
+  exports: [PieChartComponent, LineChartComponent],
   imports: [CommonModule, NgxChartsModule],
 })
 export class SharedModule {}

@@ -1,7 +1,7 @@
-import {IParticipation} from "./Participation";
+import { IParticipation } from './Participation';
 
-export  interface IOlympicCountry {
-  id:string;
-  country:string;
+export interface IOlympicCountry {
+  id: number;
+  country: string;
   participations: IParticipation[];
 }

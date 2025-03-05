@@ -1,13 +1,20 @@
 <ngx-charts-pie-chart
   (activate)="onActivate($event)"
   (select)="onSelect($event)"
-  [doughnut]="isDoughnut"
-  [gradient]="gradient"
-  [labels]="showLabels"
-  [legendPosition]="legendPosition"
-  [legend]="showLegend"
+  (window:resize)="onResize($event)"
+  [doughnut]="configuration.isDoughnut"
+  [gradient]="configuration.gradient"
+  [labels]="configuration.showLabels"
+  [legend]="configuration.showLegend"
   [results]="datas"
-  [scheme]="colorScheme"
-  [view]="view"
->
+  [scheme]="configuration.colorScheme"
+  [trimLabels]="configuration.trimLabels"
+  [view]="configuration.view">
+  <ng-template #tooltipTemplate class="pie-tooltip" let-model="model">
+    <p class="pie-tooltip__title">{{ model.name }}</p>
+    <span class="pie-tooltip__value">
+      <i class="pie-tooltip__value__img fa-solid fa-award"></i>
+      <p class="pie-tooltip__value__sub-label">{{ model.value }}</p>
+    </span>
+  </ng-template>
 </ngx-charts-pie-chart>
