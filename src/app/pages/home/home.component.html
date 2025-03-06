@@ -1,8 +1,17 @@
-<h2>Olympic games app</h2>
-<hr />
-<app-pie-chart
-  *ngIf="countryMedals$ | async"
-  [datas]="countryMedals$ | async" />
-<app-line-chart
-  *ngIf="countryParticipation$ | async"
-  [datas]="countryParticipation$ | async" />
+<main>
+  <section class="countries-details">
+    <app-page-title content="Medals per Country"/>
+    <div class="countries-details__counters">
+      <app-counter count="10" label="Number of JOs"/>
+      <app-counter count="10" label="Number of countries"/>
+    </div>
+  </section>
+  <section class="countries-details-chart-container">
+    <app-pie-chart
+      *ngIf="countryMedals$ | async"
+      [datas]="countryMedals$ | async"/>
+  </section>
+</main>
+
+
+
