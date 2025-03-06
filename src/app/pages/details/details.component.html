@@ -1,1 +1,15 @@
-<p>details works!</p>
+<main>
+  <section class="country-details">
+    <app-page-title content="Spain"/>
+    <div class="country-details__counters">
+      <app-counter count="3" label="Number of entries"/>
+      <app-counter count="5" label="Total number medals"/>
+      <app-counter count="32" label="Total number of athletes"/>
+    </div>
+  </section>
+  <section class="country-details-chart-container">
+    <app-line-chart
+      *ngIf="countryParticipation$ | async"
+      [datas]="countryParticipation$ | async"/>
+  </section>
+</main>

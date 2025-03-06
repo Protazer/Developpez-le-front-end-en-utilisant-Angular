@@ -1,0 +1,19 @@
+.counter-container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  border: 2px solid #04838f;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0 1rem;
+  font-size: 1.5rem;
+
+  &__label {
+
+    margin-bottom: 0.5rem;
+  }
+
+  &__counter {
+
+  }
+}

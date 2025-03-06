@@ -7,15 +7,27 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeaderComponent } from './core/components/header/header.component';
+import { PageTitleComponent } from './shared/components/page-title/page-title.component';
+import { CounterComponent } from './shared/components/counter/counter.component';
+import { DetailsComponent } from './pages/details/details.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    DetailsComponent,
+    NotFoundComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    HeaderComponent,
+    PageTitleComponent,
+    CounterComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],
