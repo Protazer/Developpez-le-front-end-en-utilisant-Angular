@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ScaleType } from '@swimlane/ngx-charts';
 import { IPieChartDatas } from '../../../core/models/PieChart';
 import { IPieChartConfiguration } from './pie-chart.types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pie-chart',
@@ -32,12 +33,14 @@ export class PieChartComponent implements OnInit {
     },
   };
 
+  constructor(private router: Router) {}
+
   ngOnInit() {
     this.configuration.view = [window.innerWidth, 500];
   }
 
   onSelect(data: IPieChartDatas) {
-    console.log(data);
+    this.router.navigateByUrl(`details/${data.extra.id}`);
   }
 
   onResize(event: Event): void {

@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { IOlympicCountry } from '../models/Olympic';
 import { IPieChartDatas } from '../models/PieChart';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -15,10 +14,7 @@ export class OlympicService {
     undefined
   );
 
-  constructor(
-    private http: HttpClient,
-    private Router: Router
-  ) {}
+  constructor(private http: HttpClient) {}
 
   loadInitialData() {
     return this.http.get<IOlympicCountry[]>(this.olympicUrl).pipe(
@@ -37,7 +33,7 @@ export class OlympicService {
     return this.olympics$.asObservable();
   }
 
-  getCountryMedals(): Observable<IPieChartDatas[] | undefined> {
+  getCountriesChartMedals(): Observable<IPieChartDatas[] | undefined> {
     return this.olympics$.pipe(
       map((countries) => {
         return countries?.map(({ country, participations, id }) => ({
@@ -52,7 +48,7 @@ export class OlympicService {
   }
 
   getCountryDetailsById(id: number) {
-    const foundCountry = this.olympics$.pipe(
+    return this.olympics$.pipe(
       map((countries) => {
         return countries
           ?.filter((country) => country?.id === id)
@@ -65,9 +61,5 @@ export class OlympicService {
           }));
       })
     );
-    if (!foundCountry) {
-      this.Router.navigateByUrl('**');
-    }
-    return foundCountry;
   }
 }
