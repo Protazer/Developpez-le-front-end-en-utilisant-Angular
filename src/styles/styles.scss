@@ -1,15 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@import "variables";
+@import "@fontsource/roboto";
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Roboto, sans-serif;
-  font-weight: 400;
+  font-family: "Roboto", sans-serif;
 }
 
 .pie-label {
-  font-size: 1rem !important;
-  font-family: Roboto, sans-serif;
+  font-size: 1.3rem !important;
+  font-family: "Roboto", sans-serif;
   padding: 0 0.5rem;
 }
 
@@ -17,16 +19,16 @@ ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
   padding: 0.5rem;
   min-width: 100px;
   font-size: 1rem !important;
-  background-color: #04838f !important;
+  background-color: $color-primary !important;
   color: #fff;
   box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 
   .tooltip-caret.position-top {
-    border-top-color: #04838F;
+    border-top-color: $color-primary;
   }
 
   .tooltip-caret.position-right {
-    border-right-color: #04838F;
+    border-right-color: $color-primary;
   }
 }
 

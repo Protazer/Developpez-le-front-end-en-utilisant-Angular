@@ -2,13 +2,13 @@
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  padding: 3rem 0 0 0;
+  padding: 2rem 0 0 0;
 
 
   &__counters {
     display: flex;
     flex-flow: row wrap;
-    margin: 3rem 0 0 0;
+    margin: 2rem 0 0 0;
   }
 }
 
