@@ -1,8 +1,10 @@
+@import "src/styles/variables";
+
 .page-title-container {
   display: inline-flex;
   justify-content: center;
   color: white;
-  background-color: #04838f;
+  background-color: $color-primary;
   border-radius: 5px;
   padding: 1rem;
   font-weight: lighter;

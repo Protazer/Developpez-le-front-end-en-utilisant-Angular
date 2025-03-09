@@ -1,8 +1,10 @@
+@import "src/styles/variables";
+
 .counter-container {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  border: 2px solid #04838f;
+  border: 2px solid $color-primary;
   border-radius: 8px;
   padding: 1rem;
   margin: 0 1rem;
