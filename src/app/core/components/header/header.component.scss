@@ -1,11 +1,36 @@
+@import 'src/styles/variables';
+
 .header-container {
   display: flex;
   flex-flow: column nowrap;
+  color: $color-primary;
+
+
+  &__separator {
+    height: 3px;
+    background-color: $color-primary;
+    color: $color-primary;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+
+    &__arrow {
+      font-size: 2rem;
+      padding: 0 1rem;
+      cursor: pointer;
+    }
+
+    &__title {
+      padding: 1rem 1.5rem;
+    }
+  }
 }
 
-.header-container__title {
-  padding: 1rem 1rem;
-}
+
+
+
 
 
 
