@@ -1,4 +1,12 @@
 <header class="header-container">
-  <h2 class="header-container__title">Olympic games app</h2>
-  <hr/>
+  <div class="header-container__content">
+    <span
+      (click)="handleOnClickBack()"
+      *ngIf="showBackLink"
+      class="header-container__content__arrow"
+      ><i class="fa-solid fa-circle-left"></i
+    ></span>
+    <h2 class="header-container__content__title">Olympic games app</h2>
+  </div>
+  <hr class="header-container__separator" />
 </header>
