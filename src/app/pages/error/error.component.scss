@@ -1,0 +1,9 @@
+@import 'src/styles/variables';
+
+.error-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $color-primary;
+  height: calc(100vh - 60px);
+}
