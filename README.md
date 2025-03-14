@@ -1,29 +1,45 @@
-# OlympicGamesStarter
+[![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
+# Telesport Olympic Games
 
-Don't forget to install your node_modules before starting (`npm install`).
+## Required dependencies
 
-## Development server
+- "@angular/animations": "^18.0.3",
+- "@angular/common": "^18.0.3",
+- "@angular/compiler": "^18.0.3",
+- "@angular/core": "^18.0.3",
+- "@angular/forms": "^18.0.3",
+- "@angular/platform-browser": "^18.0.3",
+- "@angular/platform-browser-dynamic": "^18.0.3",
+- "@angular/router": "^18.0.3",
+- "@fontsource/roboto": "^5.2.5",
+- "@fortawesome/fontawesome-free": "^6.7.2",
+- "@swimlane/ngx-charts": "^22.0.0-alpha.0",
+- "rxjs": "~7.8.0",
+- "tslib": "^2.3.0",
+- "zone.js": "~0.14.3"
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Install and lauch the Front-End :
 
-## Build
+1. Clone the repository of Sportsee Front-End  :   
+   `git clone https://github.com/Protazer/FlorianHUBERDEAU_12_03012022.git`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+2. Install dependencies :   
+   `npm install / yarn install`
 
-## Where to start
+3. Lauch the Front-End on port 3001:   
+   `npm start / yarn start`
 
-As you can see, an architecture has already been defined for the project. It is just a suggestion, you can choose to use your own. The predefined architecture includes (in addition to the default angular architecture) the following:
+4. The application is now available at this adress `http://localhost:4200`.
 
-- `components` folder: contains every reusable components
-- `pages` folder: contains components used for routing
-- `core` folder: contains the business logic (`services` and `models` folders)
+## Features :
 
-I suggest you to start by understanding this starter code. Pay an extra attention to the `app-routing.module.ts` and the `olympic.service.ts`.
+### Home page :
 
-Once mastered, you should continue by creating the typescript interfaces inside the `models` folder. As you can see I already created two files corresponding to the data included inside the `olympic.json`. With your interfaces, improve the code by replacing every `any` by the corresponding interface.
+Home page shows a dashboard representing countries by olympics medals won over the three lasts editions of olympics games.
 
-You're now ready to implement the requested features.
+### Details page :
 
-Good luck!
+Details page shows a line chart representing the selected country details by medals won for every editions of olympic games. 
