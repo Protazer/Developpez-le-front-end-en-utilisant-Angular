@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ScaleType } from '@swimlane/ngx-charts';
 import { ILineChartDatas } from '../../../core/models/LineChart';
 import { ILineChartConfiguration } from './line-chart.types';
 
@@ -21,19 +20,6 @@ export class LineChartComponent implements OnInit {
     yAxis: true,
     timeline: true,
     autoScale: true,
-    colorScheme: {
-      name: 'custom colors',
-      group: ScaleType.Linear,
-      domain: [
-        '#956065',
-        '#793d52',
-        '#89a1db',
-        '#9780a1',
-        '#bfe0f1',
-        '#b8cbe7',
-      ],
-      selectable: false,
-    },
   };
 
   ngOnInit() {

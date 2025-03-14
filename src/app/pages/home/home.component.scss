@@ -3,11 +3,16 @@
   flex-flow: column nowrap;
   align-items: center;
   padding: 2rem 0 0 0;
-
+  
+  &__phone {
+    justify-content: center;
+  }
 
   &__counters {
     display: flex;
     flex-flow: row wrap;
     margin: 2rem 0 0 0;
   }
+
+
 }

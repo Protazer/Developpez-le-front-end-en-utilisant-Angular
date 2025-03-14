@@ -20,7 +20,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.pathSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.showBackLink = event.url.includes('/details/');
+        this.showBackLink =
+          event.url.includes('/details/') || event.url.includes('error');
       }
     });
   }

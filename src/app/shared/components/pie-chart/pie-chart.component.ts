@@ -3,6 +3,9 @@ import { ScaleType } from '@swimlane/ngx-charts';
 import { IPieChartDatas } from '../../../core/models/PieChart';
 import { IPieChartConfiguration } from './pie-chart.types';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { responsiveDevices } from '../../../core/services/responsive.service.type';
+import { ResponsiveService } from '../../../core/services/responsive.service';
 
 @Component({
   selector: 'app-pie-chart',
@@ -10,7 +13,9 @@ import { Router } from '@angular/router';
   styleUrl: './pie-chart.component.scss',
 })
 export class PieChartComponent implements OnInit {
-  @Input() datas?: IPieChartDatas[] | null;
+  @Input() datas?: IPieChartDatas[];
+  public responsiveSubscription?: Subscription;
+  public responsiveDevices: responsiveDevices = null;
   configuration: IPieChartConfiguration = {
     view: [500, 500],
     gradient: true,
@@ -33,10 +38,20 @@ export class PieChartComponent implements OnInit {
     },
   };
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private responsiveService: ResponsiveService
+  ) {}
 
   ngOnInit() {
     this.configuration.view = [window.innerWidth, 500];
+    this.responsiveSubscription = this.responsiveService
+      .observeBreakPoints()
+      .subscribe(() => {
+        this.responsiveDevices = this.responsiveService.breakPointsChange();
+        this.configuration.trimLabels =
+          this.responsiveService.breakPointsChange() === 'phone';
+      });
   }
 
   onSelect(data: IPieChartDatas) {
@@ -47,6 +62,4 @@ export class PieChartComponent implements OnInit {
     const element = event.target as Window;
     this.configuration.view = [element.innerWidth, 500];
   }
-
-  onActivate(data: any): void {}
 }

@@ -1,17 +1,21 @@
 <main>
-  <section class="countries-details">
-    <app-page-title content="Medals per Country"/>
-    <div class="countries-details__counters">
-      <app-counter count="10" label="Number of JOs"/>
-      <app-counter count="10" label="Number of countries"/>
+  <app-loader *ngIf="olympicsState?.loading" />
+  <section *ngIf="!olympicsState?.loading" class="countries-details">
+    <app-page-title content="Medals per Country" />
+    <div
+      [ngClass]="
+        !['desktop', null].includes(responsiveDevices)
+          ? 'countries-details__' + responsiveDevices
+          : ''
+      "
+      class="countries-details__counters">
+      <app-counter count="{{ participationsNumber }}" label="Number of JOs" />
+      <app-counter
+        count="{{ olympicsState?.data?.length }}"
+        label="Number of countries" />
     </div>
   </section>
   <section class="countries-details-chart-container">
-    <app-pie-chart
-      *ngIf="countryMedals$ | async"
-      [datas]="countryMedals$ | async"/>
+    <app-pie-chart *ngIf="countriesChartDatas" [datas]="countriesChartDatas" />
   </section>
 </main>
-
-
-

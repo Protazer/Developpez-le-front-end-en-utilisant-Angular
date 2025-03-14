@@ -1,5 +1,3 @@
-import { Color } from '@swimlane/ngx-charts';
-
 export interface ILineChartConfiguration {
   view: [number, number];
   showLegend: boolean;
@@ -11,5 +9,4 @@ export interface ILineChartConfiguration {
   yAxis: boolean;
   timeline: boolean;
   autoScale: boolean;
-  colorScheme: Color;
 }
