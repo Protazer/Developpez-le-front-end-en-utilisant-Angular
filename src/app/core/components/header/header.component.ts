@@ -17,16 +17,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
-    this.pathSubscription = this.router.events.subscribe((event) => {
+  ngOnInit(): void {
+    this.pathSubscription = this.router.events.subscribe((event): void => {
       if (event instanceof NavigationEnd) {
-        this.showBackLink =
-          event.url.includes('/details/') || event.url.includes('error');
+        this.showBackLink = ['/details/', 'error'].includes(event.url);
       }
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.pathSubscription?.unsubscribe();
   }
 

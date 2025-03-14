@@ -4,7 +4,7 @@ import { IPieChartDatas } from '../../../core/models/PieChart';
 import { IPieChartConfiguration } from './pie-chart.types';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { responsiveDevices } from '../../../core/services/responsive.service.type';
+import { ResponsiveDevicesType } from '../../../core/services/responsive.service.type';
 import { ResponsiveService } from '../../../core/services/responsive.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { ResponsiveService } from '../../../core/services/responsive.service';
 export class PieChartComponent implements OnInit {
   @Input() datas?: IPieChartDatas[];
   public responsiveSubscription?: Subscription;
-  public responsiveDevices: responsiveDevices = null;
+  public responsiveDevices: ResponsiveDevicesType = null;
   configuration: IPieChartConfiguration = {
     view: [500, 500],
     gradient: true,
@@ -47,14 +47,14 @@ export class PieChartComponent implements OnInit {
     this.configuration.view = [window.innerWidth, 500];
     this.responsiveSubscription = this.responsiveService
       .observeBreakPoints()
-      .subscribe(() => {
+      .subscribe((): void => {
         this.responsiveDevices = this.responsiveService.breakPointsChange();
         this.configuration.trimLabels =
           this.responsiveService.breakPointsChange() === 'phone';
       });
   }
 
-  onSelect(data: IPieChartDatas) {
+  onSelect(data: IPieChartDatas): void {
     this.router.navigateByUrl(`details/${data.extra.id}`);
   }
 

@@ -4,7 +4,10 @@ import { ILineChartDatas } from '../../core/models/LineChart';
 import { OlympicService } from '../../core/services/olympic.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResponsiveService } from '../../core/services/responsive.service';
-import { responsiveDevices } from '../../core/services/responsive.service.type';
+import { ResponsiveDevicesType } from '../../core/services/responsive.service.type';
+import { IOlympicServiceState } from '../../core/services/olympics.service.type';
+import { IOlympicCountry } from '../../core/models/Olympic';
+import { IParticipation } from '../../core/models/Participation';
 
 @Component({
   selector: 'app-details',
@@ -14,7 +17,7 @@ import { responsiveDevices } from '../../core/services/responsive.service.type';
 export class DetailsComponent implements OnInit, OnDestroy {
   public countrySubscription?: Subscription;
   public responsiveSubscription?: Subscription;
-  public responsiveDevices: responsiveDevices = null;
+  public responsiveDevices: ResponsiveDevicesType = null;
   public loading: boolean = true;
   public countryEntries?: number;
   public countryMedals?: number;
@@ -33,43 +36,55 @@ export class DetailsComponent implements OnInit, OnDestroy {
     const countryId: number = Number(this.route.snapshot.params['id']);
     this.countrySubscription = this.olympicService
       .getCountryById(countryId)
-      .subscribe(({ data, loading }) => {
-        if (!data) {
-          this.router.navigateByUrl('**');
-        } else {
-          this.loading = loading;
-          this.countryName = data.country;
-          this.countryEntries = data.participations.length;
-          this.countryMedals = data.participations
-            .map((participation) => participation.medalsCount)
-            .reduce((acc, current) => {
-              return acc + current;
-            }, 0);
+      .subscribe(
+        ({ data, loading }: IOlympicServiceState<IOlympicCountry>): void => {
+          if (!data) {
+            this.router.navigateByUrl('**');
+          } else {
+            this.loading = loading;
+            this.countryName = data.country;
+            this.countryEntries = data.participations.length;
+            this.countryMedals = data.participations
+              .map(
+                (participation: IParticipation): number =>
+                  participation.medalsCount
+              )
+              .reduce((acc: number, current: number): number => {
+                return acc + current;
+              }, 0);
 
-          this.countryAtheletes = data.participations
-            .map((participation) => participation.athleteCount)
-            .reduce((acc, current) => {
-              return acc + current;
-            }, 0);
-          this.countryParticipation = [
-            {
-              name: data.country,
-              series: data.participations.map((participation) => ({
-                name: String(participation.year),
-                value: participation.medalsCount,
-              })),
-            },
-          ];
+            this.countryAtheletes = data.participations
+              .map(
+                (participation: IParticipation): number =>
+                  participation.athleteCount
+              )
+              .reduce((acc: number, current: number): number => {
+                return acc + current;
+              }, 0);
+            this.countryParticipation = [
+              {
+                name: data.country,
+                series: data.participations.map(
+                  (
+                    participation: IParticipation
+                  ): { name: string; value: number } => ({
+                    name: String(participation.year),
+                    value: participation.medalsCount,
+                  })
+                ),
+              },
+            ];
+          }
         }
-      });
+      );
     this.responsiveSubscription = this.responsiveService
       .observeBreakPoints()
-      .subscribe(() => {
+      .subscribe((): void => {
         this.responsiveDevices = this.responsiveService.breakPointsChange();
       });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.countrySubscription?.unsubscribe();
     this.responsiveSubscription?.unsubscribe();
   }

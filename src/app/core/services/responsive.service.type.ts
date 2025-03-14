@@ -1,1 +1,1 @@
-export type responsiveDevices = 'desktop' | 'tablet' | 'phone' | null;
+export type ResponsiveDevicesType = 'desktop' | 'tablet' | 'phone' | null;

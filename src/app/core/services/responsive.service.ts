@@ -5,7 +5,7 @@ import {
   BreakpointState,
 } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
-import { responsiveDevices } from './responsive.service.type';
+import { ResponsiveDevicesType } from './responsive.service.type';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +20,7 @@ export class ResponsiveService {
     return this.responsiveObserver.observe([Web, Tablet, Handset]);
   }
 
-  breakPointsChange(): responsiveDevices {
+  breakPointsChange(): ResponsiveDevicesType {
     const { Web, Tablet, Handset } = Breakpoints;
     if (this.responsiveObserver.isMatched(Web)) {
       return (this.breakPoint = 'desktop');

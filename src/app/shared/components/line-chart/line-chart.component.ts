@@ -22,20 +22,22 @@ export class LineChartComponent implements OnInit {
     autoScale: true,
   };
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.configuration.view = [window.innerWidth, 500];
     const medalsCount: number[] | undefined = this.datas
-      ?.map((data) => {
-        return data.series.map((serie) => {
-          return serie.value;
-        });
+      ?.map((data: ILineChartDatas): number[] => {
+        return data.series.map(
+          (serie: { name: string; value: number }): number => {
+            return serie.value;
+          }
+        );
       })
       .flat();
 
     if (medalsCount) {
-      const max = Math.max(...medalsCount);
-      const min = Math.min(...medalsCount);
-      const delta = Math.floor(max - min);
+      const max: number = Math.max(...medalsCount);
+      const min: number = Math.min(...medalsCount);
+      const delta: number = Math.floor(max - min);
       this.configuration.yScaleMin = Math.floor(min - delta);
       this.configuration.yScaleMax = Math.floor(max + delta);
     }

@@ -9,29 +9,28 @@ import { IOlympicCountry } from '../models/Olympic';
   providedIn: 'root',
 })
 export class OlympicService {
-  private olympicUrl = './assets/mock/olympic.json';
-  private olympics$ = new BehaviorSubject<
-    IOlympicServiceState<IOlympicCountry[]>
-  >({
-    data: undefined,
-    loading: true,
-  });
+  private olympicUrl: string = './assets/mock/olympic.json';
+  private olympics$: BehaviorSubject<IOlympicServiceState<IOlympicCountry[]>> =
+    new BehaviorSubject<IOlympicServiceState<IOlympicCountry[]>>({
+      data: undefined,
+      loading: true,
+    });
 
   constructor(private http: HttpClient) {}
 
   loadInitialData(): Observable<IOlympicCountry[]> {
     return this.http.get<IOlympicCountry[]>(this.olympicUrl).pipe(
-      tap((value: IOlympicCountry[]) => {
+      tap((value: IOlympicCountry[]): void => {
         this.olympics$.next({ data: value, loading: false });
       }),
-      catchError((error: Error, caught) => {
+      catchError((error: Error, caught: Observable<IOlympicCountry[]>) => {
         this.olympics$.next({ data: undefined, loading: false });
         throw new Error('Oups il y a une erreur !');
       })
     );
   }
 
-  getOlympics() {
+  getOlympics(): Observable<IOlympicServiceState<IOlympicCountry[]>> {
     return this.olympics$.asObservable().pipe(delay(1000));
   }
 
@@ -40,10 +39,18 @@ export class OlympicService {
   ): Observable<IOlympicServiceState<IOlympicCountry>> {
     return this.olympics$.asObservable().pipe(
       delay(1000),
-      map(({ loading, data }) => ({
-        loading,
-        data: data?.find((country) => country?.id === id),
-      }))
+      map(
+        ({
+          loading,
+          data,
+        }: IOlympicServiceState<IOlympicCountry[]>): {
+          loading: boolean;
+          data?: IOlympicCountry;
+        } => ({
+          loading,
+          data: data?.find((country) => country?.id === id),
+        })
+      )
     );
   }
 }
