@@ -24,12 +24,9 @@ export class OlympicService {
       tap((value: IOlympicCountry[]) => {
         this.olympics$.next({ data: value, loading: false });
       }),
-      catchError((error, caught) => {
-        // TODO: improve error handling
-        console.error(error);
-        // can be useful to end loading state and let the user know something went wrong
+      catchError((error: Error, caught) => {
         this.olympics$.next({ data: undefined, loading: false });
-        return caught;
+        throw new Error('Oups il y a une erreur !');
       })
     );
   }

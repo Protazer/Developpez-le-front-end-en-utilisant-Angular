@@ -1,15 +1,24 @@
 <main>
-  <section class="country-details">
-    <app-page-title content="Spain"/>
-    <div class="country-details__counters">
-      <app-counter count="3" label="Number of entries"/>
-      <app-counter count="5" label="Total number medals"/>
-      <app-counter count="32" label="Total number of athletes"/>
+  <app-loader *ngIf="loading" />
+  <section *ngIf="!loading" class="country-details">
+    <app-page-title content="{{ countryName }}" />
+    <div
+      [ngClass]="
+        !['desktop', null].includes(responsiveDevices)
+          ? 'country-details__counters__' + responsiveDevices
+          : ''
+      "
+      class="country-details__counters">
+      <app-counter count="{{ countryEntries }}" label="Number of entries" />
+      <app-counter count="{{ countryMedals }}" label="Total number medals" />
+      <app-counter
+        count="{{ countryAtheletes }}"
+        label="Total number of athletes" />
     </div>
   </section>
   <section class="country-details-chart-container">
     <app-line-chart
-      *ngIf="countryParticipation$ | async"
-      [datas]="countryParticipation$ | async"/>
+      *ngIf="countryParticipation"
+      [datas]="countryParticipation" />
   </section>
 </main>
