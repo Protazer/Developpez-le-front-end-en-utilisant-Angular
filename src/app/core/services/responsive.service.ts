@@ -13,13 +13,25 @@ import { ResponsiveDevicesType } from './responsive.service.type';
 export class ResponsiveService {
   public breakPoint: string = '';
 
+  /**
+   * Dependencies injections.
+   * @param responsiveObserver
+   */
   constructor(private responsiveObserver: BreakpointObserver) {}
 
+  /**
+   * Observe current breakPoint.
+   * @returns Observable<BreakpointState>
+   */
   observeBreakPoints(): Observable<BreakpointState> {
     const { Web, Tablet, Handset } = Breakpoints;
     return this.responsiveObserver.observe([Web, Tablet, Handset]);
   }
 
+  /**
+   * Observe type of BreakpointObserver.
+   * @returns "desktop" | "tablet" | "phone" | undefined.
+   */
   breakPointsChange(): ResponsiveDevicesType {
     const { Web, Tablet, Handset } = Breakpoints;
     if (this.responsiveObserver.isMatched(Web)) {

@@ -16,8 +16,15 @@ export class OlympicService {
       loading: true,
     });
 
+  /**
+   * Dependencies injection.
+   * @param http
+   */
   constructor(private http: HttpClient) {}
 
+  /**
+   * Initialize state's datas.
+   */
   loadInitialData(): Observable<IOlympicCountry[]> {
     return this.http.get<IOlympicCountry[]>(this.olympicUrl).pipe(
       tap((value: IOlympicCountry[]): void => {
@@ -30,10 +37,17 @@ export class OlympicService {
     );
   }
 
+  /**
+   * Return state's data of type IOlympicCountry[] and loading status.
+   */
   getOlympics(): Observable<IOlympicServiceState<IOlympicCountry[]>> {
     return this.olympics$.asObservable().pipe(delay(1000));
   }
 
+  /**
+   * Return  state's data for only one country of type IOlympicCountry || undefined and loading status.
+   * @param id - Country id.
+   */
   getCountryById(
     id: number
   ): Observable<IOlympicServiceState<IOlympicCountry>> {
@@ -48,7 +62,9 @@ export class OlympicService {
           data?: IOlympicCountry;
         } => ({
           loading,
-          data: data?.find((country) => country?.id === id),
+          data: data?.find(
+            (country: IOlympicCountry): boolean => country?.id === id
+          ),
         })
       )
     );

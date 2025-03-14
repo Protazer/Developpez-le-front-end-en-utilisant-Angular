@@ -25,6 +25,13 @@ export class DetailsComponent implements OnInit, OnDestroy {
   public countryName?: string;
   public countryParticipation?: ILineChartDatas[];
 
+  /**
+   * Dependencies injection.
+   * @param olympicService
+   * @param router
+   * @param route
+   * @param responsiveService
+   */
   constructor(
     private olympicService: OlympicService,
     private router: Router,
@@ -33,17 +40,21 @@ export class DetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    // Get id from url.
     const countryId: number = Number(this.route.snapshot.params['id']);
     this.countrySubscription = this.olympicService
       .getCountryById(countryId)
       .subscribe(
         ({ data, loading }: IOlympicServiceState<IOlympicCountry>): void => {
           if (!data) {
+            // if no data redirect to 'not-found' page
             this.router.navigateByUrl('**');
           } else {
             this.loading = loading;
             this.countryName = data.country;
             this.countryEntries = data.participations.length;
+
+            // get country medals.
             this.countryMedals = data.participations
               .map(
                 (participation: IParticipation): number =>
@@ -53,6 +64,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
                 return acc + current;
               }, 0);
 
+            // get country Atheletes.
             this.countryAtheletes = data.participations
               .map(
                 (participation: IParticipation): number =>
@@ -61,6 +73,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
               .reduce((acc: number, current: number): number => {
                 return acc + current;
               }, 0);
+
+            // Get country participations.
             this.countryParticipation = [
               {
                 name: data.country,
@@ -77,6 +91,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
           }
         }
       );
+
+    // Get current screen format.
     this.responsiveSubscription = this.responsiveService
       .observeBreakPoints()
       .subscribe((): void => {
@@ -84,6 +100,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * Unsubscribe services.
+   */
   ngOnDestroy(): void {
     this.countrySubscription?.unsubscribe();
     this.responsiveSubscription?.unsubscribe();

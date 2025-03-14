@@ -15,21 +15,33 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public pathSubscription?: Subscription;
   public showBackLink: boolean = false;
 
+  /**
+   * Dependencies injection.
+   * @param router
+   */
   constructor(private router: Router) {}
 
   ngOnInit(): void {
+    // Observe url to show back button.
     this.pathSubscription = this.router.events.subscribe((event): void => {
       if (event instanceof NavigationEnd) {
-        this.showBackLink = ['/details/', 'error'].includes(event.url);
+        this.showBackLink =
+          event.url.includes('/details/') || event.url.includes('error');
       }
     });
   }
 
-  ngOnDestroy(): void {
-    this.pathSubscription?.unsubscribe();
-  }
-
+  /**
+   * Redirect to 'home' page.
+   */
   handleOnClickBack(): void {
     this.router.navigateByUrl('/');
+  }
+
+  /**
+   * Unsubscribe services.
+   */
+  ngOnDestroy(): void {
+    this.pathSubscription?.unsubscribe();
   }
 }

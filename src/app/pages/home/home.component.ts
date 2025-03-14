@@ -24,12 +24,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   public countriesChartDatas?: IPieChartDatas[];
   public participationsNumber?: number;
 
+  /**
+   * Dependencies injection.
+   * @param olympicService
+   * @param responsiveService
+   */
   constructor(
     private olympicService: OlympicService,
     private responsiveService: ResponsiveService
   ) {}
 
   ngOnInit(): void {
+    // Get formated value of all countrie.
     this.olympicsSubscription = this.olympicService
       .getOlympics()
       .subscribe((state: IOlympicServiceState<IOlympicCountry[]>) => {
@@ -50,12 +56,15 @@ export class HomeComponent implements OnInit, OnDestroy {
             ),
           })
         );
+        // Get all countries participations number.
         this.participationsNumber = Math.max(
           ...(state.data?.map(
             (country: IOlympicCountry): number => country.participations.length
           ) ?? [0])
         );
       });
+
+    // Get current screen format.
     this.responsiveSubscription = this.responsiveService
       .observeBreakPoints()
       .subscribe((): void => {
@@ -63,6 +72,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * Unsubscribe services.
+   */
   ngOnDestroy(): void {
     this.responsiveSubscription?.unsubscribe();
     this.olympicsSubscription?.unsubscribe();

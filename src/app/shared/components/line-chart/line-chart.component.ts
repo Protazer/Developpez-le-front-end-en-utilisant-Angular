@@ -9,6 +9,7 @@ import { ILineChartConfiguration } from './line-chart.types';
 })
 export class LineChartComponent implements OnInit {
   @Input() datas?: ILineChartDatas[] | null;
+
   configuration: ILineChartConfiguration = {
     view: [500, 500],
     showLegend: false,
@@ -23,7 +24,10 @@ export class LineChartComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    // Initialize view of chart.
     this.configuration.view = [window.innerWidth, 500];
+
+    // Get medals count
     const medalsCount: number[] | undefined = this.datas
       ?.map((data: ILineChartDatas): number[] => {
         return data.series.map(
@@ -34,6 +38,7 @@ export class LineChartComponent implements OnInit {
       })
       .flat();
 
+    // Compute min and max medals to set the y scale
     if (medalsCount) {
       const max: number = Math.max(...medalsCount);
       const min: number = Math.min(...medalsCount);
@@ -43,6 +48,10 @@ export class LineChartComponent implements OnInit {
     }
   }
 
+  /**
+   * Compute view width with resize event.
+   * @param event
+   */
   onResize(event: Event): void {
     const element = event.target as Window;
     this.configuration.view = [element.innerWidth, 500];

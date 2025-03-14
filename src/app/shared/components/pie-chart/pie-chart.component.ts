@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ScaleType } from '@swimlane/ngx-charts';
 import { IPieChartDatas } from '../../../core/models/PieChart';
 import { IPieChartConfiguration } from './pie-chart.types';
@@ -12,7 +12,7 @@ import { ResponsiveService } from '../../../core/services/responsive.service';
   templateUrl: './pie-chart.component.html',
   styleUrl: './pie-chart.component.scss',
 })
-export class PieChartComponent implements OnInit {
+export class PieChartComponent implements OnInit, OnDestroy {
   @Input() datas?: IPieChartDatas[];
   public responsiveSubscription?: Subscription;
   public responsiveDevices: ResponsiveDevicesType = null;
@@ -38,12 +38,18 @@ export class PieChartComponent implements OnInit {
     },
   };
 
+  /**
+   * Dependencies injection.
+   * @param router
+   * @param responsiveService
+   */
   constructor(
     private router: Router,
     private responsiveService: ResponsiveService
   ) {}
 
   ngOnInit() {
+    // Initialize view of chart.
     this.configuration.view = [window.innerWidth, 500];
     this.responsiveSubscription = this.responsiveService
       .observeBreakPoints()
@@ -54,12 +60,27 @@ export class PieChartComponent implements OnInit {
       });
   }
 
+  /**
+   * Redirect to 'details/id' with selected country id.
+   * @param data
+   */
   onSelect(data: IPieChartDatas): void {
     this.router.navigateByUrl(`details/${data.extra.id}`);
   }
 
+  /**
+   * Compute view width with resize event.
+   * @param event
+   */
   onResize(event: Event): void {
     const element = event.target as Window;
     this.configuration.view = [element.innerWidth, 500];
+  }
+
+  /**
+   * Unsubscribe services.
+   */
+  ngOnDestroy(): void {
+    this.responsiveSubscription?.unsubscribe();
   }
 }
